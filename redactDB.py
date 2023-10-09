@@ -11,7 +11,7 @@ cursor = conn.cursor()
 h = True
 
 # Приветсвенное сообщение
-print('Здравствуйте!\nЭта программа создана для просмотра и изменения даных в БД\n')
+print('Здравствуйте!\nЭта программа создана для просмотра и изменения данных в БД\n')
 
 while h == True:
 
@@ -27,12 +27,22 @@ while h == True:
         middleName = input('Ввидите отчество: \n')
         position = input('Ввидите должность: \n')
 
-        # Вносим данные из переменных в таблицу workers
-        cursor.execute('INSERT INTO workers (name, surname, middleName, position) VALUES (?, ?, ?, ?)',
-                       (name, surname, middleName, position))
+        # Создание переменной addRecuest, в зависимости от её значения будет работать конструкция if
+        addRecuest = input('Вы ввели:\n' +
+                           '\nИмя: ' + name + '\n' +
+                           'Фамилия: ' + surname + '\n' +
+                           'Отчество: ' + middleName + '\n' +
+                           'Должность: ' + position + '\n' +
+                           '\nВсё верно? :')
 
-        # Сохранение данных в таблице
-        conn.commit()
+        # Если addRequest = 'да' то:
+        if addRecuest == 'да' or addRecuest == 'Да':
+            # Вносим данные из переменных в таблицу workers
+            cursor.execute('INSERT INTO workers (name, surname, middleName, position) VALUES (?, ?, ?, ?)',
+                           (name, surname, middleName, position))
+
+            # Сохранение данных в таблице
+            conn.commit()
 
     # Если request = 'Просмотреть' то:
     elif request == 'Просмотреть' or request == 'просмотреть':
